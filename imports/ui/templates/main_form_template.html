@@ -1,3 +1,17 @@
+<template name="main">
+	{{#if currentuser}}
+		<p> You,re logged in</p>
+	{{else}}
+		<div class="container">
+			<div class="jumbotron">
+				<ul>
+					<li>{{>sign}}</li>
+					<li>{{>register}}</li>
+				</ul>
+			</div>
+		</div>
+	{{/if}}
+</template>
 <!-- Sign in template-->
 <template name='sign'>
 	<button class="btn btn-success"><a href="/sign">Sign In</a></button>
@@ -7,39 +21,48 @@
 	<button class="btn btn-success"> <a href="/register">Sign Up</a></button>
 </template>
 <!--Template to render sign in form-->
-<template name="sign_in">
-
+<template name="login">
 	<div class="container">
-		<div class='jumbotron'>
-		<form class="form-signing">
-		<h2 class="form-signing-heading">Please Sign In</h2>
-			<input type="text" class="input-block-level" placeholder="Email address">
-			<br>
-			<br>
-			<input type="text" class="input-block-level" placeholder="Password">
-			<br>
-			<button class="btn btn-large btn-primary">Submit</button>
-		</form>
+		<div class="jumbotron">
+			<form class="login_form">
+				<label>Email:</label><br>
+				<input type="email" name="login_email">
+				<br>
+				<br>
+				<label>Password:</label><br>
+				<input type="password" name="login_password">
+				<br>
+				<br>
+				<input type="submit" value="Login" class="btn btn-lg">
+			</form>
+		</div>
 	</div>
-	</div>
-	
 </template>
+
+
 <!--Templat to render sign up form-->
 <template name="sign_up">
-<div class="container">
-		<div class='jumbotron'>
-		<form class="form-signing">
-		<h2 class="form-signing-heading">Please Sign In</h2>
-			<input type="text" class="input-block-level" placeholder="Email address">
-			<br>
-			<br>
-			<input type="text" class="input-block-level" placeholder="Password">
-			<br>
-			<br>
-			<input type="text" class="input-block-level" placeholder="Confirm Email">
-			<br>
-			<button class="btn btn-large btn-primary">Submit</button>
-		</form>
+	<div class="container">
+		<div class="jumbotron">
+			<form class="register_form">
+			<label>Email:</label><br>
+				<input type="email" name="register_email" placeholder="Please enter your email here">
+				<br>
+				<br>
+				<label>Password:</label><br>
+				<input type="password" name="password" placeholder="Please enter your password here">
+				<br>
+				<br>
+				<label>Confirm Password</label><br>
+				<input type="password" name="confirm_password" placeholder="Please re-enter your password">
+				<br>
+				<br>
+				<input type="submit" value="Register" class="btn btn-large">
+			</form>
+		</div>
 	</div>
-	</div>
+</template>
+
+<template name="some_template">
+	It fucking worked
 </template>
