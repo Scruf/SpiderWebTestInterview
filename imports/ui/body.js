@@ -10,6 +10,10 @@ Router.route('/sign',function (){
 Router.route('/register',function(){
 	this.render('sign_up');
 })
+Router.route('/:_id',function(){
+	this.render('some_template');
+})
+
 
 //Save the user info to mongo
 //@param email will hold the email
@@ -25,7 +29,12 @@ Template.login.events({
 			if(error)
 				console.log(error.reason);
 			else
-				Router.go('some_template');
+				{
+					user_id =  Meteor.users.findOne({"emails.address":login_email});
+					console.log(user_id._id);
+					let url ="/" + user_id._id;
+					Router.go(url);
+				}
 		});
 	}
 })
