@@ -1,6 +1,43 @@
+
 <body>
+<style>
+ul{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	overflow: hidden;
+}
+li{
+	display:block;
+	float: right;
+	margin: 1em 0;
+}
+</style>
+<div class="jumbotron">
 	<div class="container">
-		Hello
-		{{> loginButtons}}
+		<ul>
+			<li>{{>sign}}</li>
+			<li> </li>
+			<li> </li>
+			<li>{{>register}}</li>
+		</ul>
 	</div>
+</div>
 </body>
+
+
+<template name="temp1">
+	<p>Hello Frok</p>
+</template>
+<template name='sign'>
+	<button class="btn btn-success"><a href="/sign">Sign In</a></button>
+</template>
+<template name="register">
+	<button class="btn btn-success"> <a href="/register">Sign Up</a></button>
+</template>
+<template name="sign_in">
+	You are in register
+</template>
+<template name="sign_up">
+	You are in sign up
+</template>
