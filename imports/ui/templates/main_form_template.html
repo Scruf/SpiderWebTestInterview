@@ -71,14 +71,15 @@
 </template>
 <template name="facebook_login">
 		<!--displays the users first last name, so the user can make sure that its a right page-->
-		{{currentUser.services.facebook.name}}
+	
 		<div class="container">
+			{{currentUser.services.facebook.name}}
 			<div class="jumbotron">
 				{{>facebook_post}}
 			</div>
 		</div>
 	<!--provide user with the option to disconnect page-->
-	<button id="logout" value="Disconnect">Disconnect</button>
+	<button id="logout" class="btn btn-default" value="Disconnect">Disconnect</button>
 	<!--provide user with the option to connect users facbook page-->
 	<button class="btn btn-default login">Connect</button>
 	

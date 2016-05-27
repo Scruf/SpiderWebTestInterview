@@ -4,23 +4,8 @@ import {Session} from 'meteor/session'
 import {Users} from '../api/users.js';
 import './body.html';
 import './templates/main_form_template.html';
+import './routes.js';
 
-Router.configure({
-	layoutTempalte:'index'
-})
-Router.route('/',function(){
-	this.render('main');
-})
-Router.route('/sign',function (){
-	this.render('login');
-})
-Router.route('/register',function(){
-	this.render('sign_up');
-})
-Router.route('/:_id',function(){
-	this.render('User');
-	
-})
 
 
 //Logs the user in the system
@@ -40,10 +25,13 @@ Template.login.events({
 		//@callback takes an erro to see if the credentials are valid
 		Meteor.loginWithPassword(login_email,login_password,(error)=>{
 			//on error displays the error reason
-			if(error)
+			if(error){
 				console.log(error.reason);
+				
+				Router.go('/sign');
+			}
 			//otherwise uses users email and password to retrieve users id
-
+				
 			else
 				{
 					//@user_id will hold the userid which will be returned after query search
@@ -90,31 +78,7 @@ Template.facebook_login.events({
 			if(err)
 				console.log(err.reason);
 			else{
-				// let fb = require('fbgraph');
-				
-				// let request = require('request');
-				// let id=Meteor.user().services.facebook.id;
-
-				// let access_token=Meteor.user().services.facebook.accessToken;
-				// fb.setAccessToken(access_token);
-				// request('https://graph.facebook.com/v2.0/1146859232035537/feed?access_token=EAADXuS6OFZBYBAIetbOcu8Ds7QDp7RTkCsUB1lvyqopbwq1do2L2JlC6XGEV4oH8QfcwS7U6lY1gMTZB5AmCUvb1q48ZA535xXm79VYj37pny2PivxrrxBO3DjiyODDh82YB9cQIjhSZCWD6v89slO3j4ZB57W7IXClbLYTFYN1797FlZA5dia',(error,response,body)=>{
-				// 	if(error)
-				// 		throw error;
-				// 	else{
-				// 		console.log(response.content);
-				// 		console.log("----------------------");
-				// 		console.log(body);
-				// 	} 
-				// })
-				// // fb.post(id+"/feed?access_token="+access_token,function(error,response){
-				// // 	if(error)
-				// // 		console.log(error.reason);
-				// // 	else
-				// // 		console.log(response);
-				// // })
-				
-
-			
+					
 		}
 		});
 
@@ -132,26 +96,36 @@ Template.facebook_login.events({
 
 
 })
-
+//will presumabhly post to a facebook wall
 Template.facebook_post.events({
-
+//capture a click from a facebook post button
 	'click #facebook_post'(event){
 		event.preventDefault();
+		//@param post_text will get the text from post_holder area
 		const post_text = $('.post_holder').get(0).value;
+		//require fbgraph
 		const fb = require('fbgraph');
+		//get @param id will hold the users facebook id to later be used in sending the post
 		let id=Meteor.user().services.facebook.id;
+		//get @param access_token will hold the users page access token so the app can post on the wall
 		let access_token=Meteor.user().services.facebook.accessToken;
+		//authorize fbgraph with page access token
 		fb.setAccessToken(access_token);
+		//@param wall_post will create a wall_post message object
 		let wall_post = {
 			message:post_text
 		}
-
+		//post the messager using graph api
 		fb.post(id+"/feed",wall_post,(err,response)=>{
+			//on error the error will be thrown to let the user know what went wrong
 			if(err)
 				throw err;
-			else
+			else{
+				//will display the users post id
 				console.log(response)
+			}
 		});
+		//will reset a text area back to default value
 		$('.post_holder').get(0).value="";
 
 	}
