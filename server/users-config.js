@@ -4,6 +4,7 @@ ServiceConfiguration.configurations.remove({
  
 ServiceConfiguration.configurations.insert({
     service: 'facebook',
-    appId: '1615739815419886',
-    secret: 'd03f85b0c38c2c635f372a59aff523c6'
+    appId: '237190349985766',
+    secret: '538b66aa7c0290dedbc319909cfe2e7e',
+    requestPermissions:['publish_pages','manage_pages','user_posts']
 });

@@ -69,9 +69,28 @@ Template.facebook_login.events({
 			if(err)
 				console.log(err.reason);
 			else{
-				console.log("Success");
-			}
+				let fb = require('fbgraph');
+				let id=Meteor.user().services.facebook.id;
+
+				let access_token=Meteor.user().services.facebook.accessToken;
+				fb.setAccessToken(access_token);
+				fb.post(id+"/feed?access_token="+access_token,function(error,response){
+					if(error)
+						console.log(error.reason);
+					else
+						console.log(response);
+				})
+				// fb.setAccessToken(Meteor.user().facebook.services.accessToken);
+				//  fb.post(Meteor.user().facebook.services.id + "/feed?access_token=007", wallPost, function(err, res) {
+    //     // returns the post id
+    //    			 console.log(res); // { id: xxxxx}
+    // });
+				// FBGraph.setAccessToken(Meteor.user().facebook.services.accessToken);
+		}
 		});
+
+	
+
 	},
 	'click #logout'(event){
 		Meteor.logout((error)=>{
@@ -79,5 +98,7 @@ Template.facebook_login.events({
 				console.log(error.reason);
 		});
 	}
+
+
 })
 

@@ -24,3 +24,9 @@ accounts-password
 accounts-facebook
 iron:router
 service-configuration
+stevezhu:fbgraph
+http
+meteorhacks:npm
+
+
+npm-container
