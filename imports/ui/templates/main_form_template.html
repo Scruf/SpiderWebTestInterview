@@ -70,11 +70,33 @@
 	{{>facebook_login}}
 </template>
 <template name="facebook_login">
-	
+		<!--displays the users first last name, so the user can make sure that its a right page-->
 		{{currentUser.services.facebook.name}}
-		{{currentUser.services.facebook.id}}
-		<input type="text"  class="some" name="facebook_id" value="{{currentUser.services.facebook.id}}" style="display:none">
+		<div class="container">
+			<div class="jumbotron">
+				{{>facebook_post}}
+			</div>
+		</div>
+	<!--provide user with the option to disconnect page-->
 	<button id="logout" value="Disconnect">Disconnect</button>
+	<!--provide user with the option to connect users facbook page-->
 	<button class="btn btn-default login">Connect</button>
 	
+</template>
+<!-- Displays the users wall info-->
+<template name="facebook_wall">
+
+</template>
+<!--Provide user with the option to post on his/her page-->
+<template name="facebook_post">
+	<div class="row">
+		<textarea type="text" class="post_holder" name="post_holder">
+	
+		</textarea>
+	</div>
+	<div class="row">
+		<div class="col-md-4 button_group">
+			<button id="facebook_post" calss="btn btn-default">Send</button>
+		</div>
+	</div>
 </template>
