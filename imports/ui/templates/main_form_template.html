@@ -1,3 +1,6 @@
+<template name="index">
+	{{>yield}}
+</template>
 <template name="main">
 	{{#if currentuser}}
 		<p> You,re logged in</p>
@@ -64,5 +67,12 @@
 </template>
 
 <template name="some_template">
-	It fucking worked
+	{{>contentFor region="main" template="User"}}
+	Some Made up stuff
+</template>
+<template name="User">
+	Its a separate page
+</template>
+<template name="UserAsides">
+	Its a separate page
 </template>

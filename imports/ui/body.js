@@ -4,6 +4,13 @@ import {Session} from 'meteor/session'
 import {Users} from '../api/users.js';
 import './body.html';
 import './templates/main_form_template.html';
+
+Router.configure({
+	layoutTempalte:'index'
+})
+Router.route('/',function(){
+	this.render('main');
+})
 Router.route('/sign',function (){
 	this.render('login');
 })
@@ -11,7 +18,9 @@ Router.route('/register',function(){
 	this.render('sign_up');
 })
 Router.route('/:_id',function(){
-	this.render('some_template');
+	this.layout('some_template');
+	this.render('Users');
+	this.render('UserAsides',{to:'main'});
 })
 
 
