@@ -66,13 +66,14 @@
 	</div>
 </template>
 
-<template name="some_template">
-	{{>contentFor region="main" template="User"}}
-	Some Made up stuff
-</template>
 <template name="User">
-	Its a separate page
+	{{>facebook_login}}
 </template>
-<template name="UserAsides">
-	Its a separate page
+<template name="facebook_login">
+	
+		{{currentUser.services.facebook.name}}
+		{{currentUser.services.facebook.id}}
+	<button id="logout" value="Disconnect">Disconnect</button>
+	<button class="btn btn-default login">Connect</button>
+	
 </template>

@@ -18,9 +18,8 @@ Router.route('/register',function(){
 	this.render('sign_up');
 })
 Router.route('/:_id',function(){
-	this.layout('some_template');
-	this.render('Users');
-	this.render('UserAsides',{to:'main'});
+	this.render('User');
+	
 })
 
 
@@ -63,3 +62,22 @@ Template.sign_up.events({
 
 	}
 })
+Template.facebook_login.events({
+	'click .login'(event){
+
+		Meteor.loginWithFacebook({},(err)=>{
+			if(err)
+				console.log(err.reason);
+			else{
+				console.log("Success");
+			}
+		});
+	},
+	'click #logout'(event){
+		Meteor.logout((error)=>{
+			if(error)
+				console.log(error.reason);
+		});
+	}
+})
+
