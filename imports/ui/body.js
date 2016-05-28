@@ -62,8 +62,8 @@ Template.sign_up.events({
 			email:email,
 			password:password
 		});
+			
 		
-
 	}
 })
 
@@ -115,8 +115,15 @@ Template.facebook_post.events({
 		let wall_post = {
 			message:post_text
 		}
+		let node_fb = require('fb');
+		node_fb.setAccessToken(access_token);
+		node_fb.api('me/feed', 'post', { message: post_text }, function (res) {
+  		
+  			console.log('Post Id: ' + res.id);
+		});
+		
 		//post the messager using graph api
-		fb.post(id+"/feed",wall_post,(err,response)=>{
+		fb.post("me/feed",wall_post,(err,response)=>{
 			//on error the error will be thrown to let the user know what went wrong
 			if(err)
 				throw err;
