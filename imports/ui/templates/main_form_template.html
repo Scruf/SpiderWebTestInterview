@@ -29,11 +29,11 @@
 		<div class="jumbotron">
 			<form class="login_form">
 				<label>Email:</label><br>
-				<input type="email" name="login_email">
+				<input class="login_email" type="email" name="login_email">
 				<br>
 				<br>
 				<label>Password:</label><br>
-				<input type="password" name="login_password">
+				<input class="login_password" type="password" name="login_password">
 				<br>
 				<br>
 				<input type="submit" value="Login" class="btn btn-lg">
@@ -90,6 +90,9 @@
 </template>
 <!--Provide user with the option to post on his/her page-->
 <template name="facebook_post">
+
+
+	<div id="status"></div>
 	<div class="row">
 		<textarea type="text" class="post_holder" name="post_holder">
 	
@@ -100,4 +103,65 @@
 			<button id="facebook_post" calss="btn btn-default">Send</button>
 		</div>
 	</div>
+	{{>facebook_sdk_post}}
+
+</template>
+<template name="facebook_sdk_post">
+<script>
+		// initialize and setup facebook js sdk
+		window.fbAsyncInit = function() {
+		    FB.init({
+		      appId      : '237190349985766',
+		      xfbml      : true,
+		      version    : 'v2.6'
+		    });
+		    FB.getLoginStatus(function(response) {
+		    	if (response.status === 'connected') {
+		    		document.getElementById('status').innerHTML = 'We are connected.';
+		    		document.getElementById('login').style.visibility = 'hidden';
+		    	} else if (response.status === 'not_authorized') {
+		    		document.getElementById('status').innerHTML = 'We are not logged in.'
+		    	} else {
+		    		document.getElementById('status').innerHTML = 'You are not logged into Facebook.';
+		    	}
+		    });
+		};
+		(function(d, s, id){
+		    var js, fjs = d.getElementsByTagName(s)[0];
+		    if (d.getElementById(id)) {return;}
+		    js = d.createElement(s); js.id = id;
+		    js.src = "//connect.facebook.net/en_US/sdk.js";
+		    fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		function login() {
+			FB.login(function(response) {
+				if (response.status === 'connected') {
+		    		document.getElementById('status').innerHTML = 'We are connected.';
+		    		document.getElementById('login').style.visibility = 'hidden';
+		    	} else if (response.status === 'not_authorized') {
+		    		document.getElementById('status').innerHTML = 'We are not logged in.'
+		    	} else {
+		    		document.getElementById('status').innerHTML = 'You are not logged into Facebook.';
+		    	}
+			}, {scope: 'publish_actions'});
+		}
+		// getting basic user info
+		function getInfo() {
+			FB.api('/me', 'GET', {fields: 'first_name,last_name,name,id'}, function(response) {
+				document.getElementById('status').innerHTML = response.id;
+			});
+		}
+		// posting on user timeline
+		function post() {
+			FB.api('/me/feed', 'post', {message: 'my first status...'}, function(response) {
+				document.getElementById('status').innerHTML = response.id;
+			});
+		}
+	</script>
+
+	<div id="status"></div>
+	<button onclick="getInfo()">Get Info</button>
+	<button onclick="post()">Post</button>
+	<button onclick="login()" id="login">Login</button>
+
 </template>

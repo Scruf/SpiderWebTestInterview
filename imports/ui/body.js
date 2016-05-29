@@ -76,7 +76,7 @@ Template.facebook_login.events({
 		Meteor.loginWithFacebook({},(err)=>{
 			//on error display the reason 	
 			if(err)
-				console.log(err.reason);
+				console.log(err);
 			else{
 					
 		}
@@ -115,18 +115,18 @@ Template.facebook_post.events({
 		let wall_post = {
 			message:post_text
 		}
-		let node_fb = require('fb');
-		node_fb.setAccessToken(access_token);
-		node_fb.api('me/feed', 'post', { message: post_text }, function (res) {
+		// let node_fb = require('fb');
+		// node_fb.setAccessToken(access_token);
+		// node_fb.api('me/feed', 'post', { message: post_text }, function (res) {
   		
-  			console.log('Post Id: ' + res.id);
-		});
+  // 			console.log('Post Id: ' + res.id);
+		// });
 		
 		//post the messager using graph api
 		fb.post("me/feed",wall_post,(err,response)=>{
 			//on error the error will be thrown to let the user know what went wrong
 			if(err)
-				throw err;
+				console.log(err.reason);
 			else{
 				//will display the users post id
 				console.log(response)
