@@ -94,7 +94,7 @@
 
 	<div id="status"></div>
 	<div class="row">
-		<textarea type="text" class="post_holder" name="post_holder">
+		<textarea type="text" class="post_holder" id="wall_message" name="post_holder">
 	
 		</textarea>
 	</div>
@@ -145,16 +145,13 @@
 		    	}
 			}, {scope: 'publish_actions'});
 		}
-		// getting basic user info
-		function getInfo() {
-			FB.api('/me', 'GET', {fields: 'first_name,last_name,name,id'}, function(response) {
-				document.getElementById('status').innerHTML = response.id;
-			});
-		}
 		// posting on user timeline
+
 		function post() {
-			FB.api('/me/feed', 'post', {message: 'my first status...'}, function(response) {
-				document.getElementById('status').innerHTML = response.id;
+			var post_text = document.getElementById('wall_message').value;
+			FB.api('/me/feed', 'post', {message:post_text}, function(response) {
+			
+				document.getElementById('wall_message').value="";
 			});
 		}
 	</script>
