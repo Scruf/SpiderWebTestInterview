@@ -137,5 +137,12 @@ Template.facebook_post.events({
 
 	}
 })
+Template.facebook_sdk_post.events({
+	'click #post'(event){
+		event.preventDefault();
+		$('.post_holder').get(0).value= " ";
+
+	}
+})
 
 
