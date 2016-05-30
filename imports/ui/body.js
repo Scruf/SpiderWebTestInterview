@@ -86,7 +86,7 @@ Template.facebook_login.events({
 
 	},
 	//on click logout disconnect the users page
-	'click #logout'(event){
+	'click .logout'(event){
 		Meteor.logout((error)=>{
 			//on error display the reason why
 			if(error)

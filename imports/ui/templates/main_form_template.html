@@ -81,7 +81,7 @@
 	<!--provide user with the option to disconnect page-->
 	<button id="logout" class="btn btn-default" value="Disconnect">Disconnect</button>
 	<!--provide user with the option to connect users facbook page-->
-	<button class="btn btn-default login">Connect</button>
+<!-- 	<button class="btn btn-default login">Connect</button> -->
 	
 </template>
 <!-- Displays the users wall info-->
@@ -146,13 +146,15 @@
 			}, {scope: 'publish_actions'});
 		}
 		// posting on user timeline
-
+	
 		function post() {
 			var post_text = document.getElementById('wall_message').value;
 			FB.api('/me/feed', 'post', {message:post_text}, function(response) {
 			
 				document.getElementById('wall_message').value="";
 			});
+			
+			
 		}
 	</script>
 
@@ -160,5 +162,5 @@
 
 	<button onclick="post()" id="post">Post</button>
 	<button onclick="login()" id="login">Login</button>
-
+	
 </template>
